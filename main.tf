@@ -14,11 +14,16 @@ module "aws_isucon_sg" {
 }
 
 resource "aws_instance" "isucon10" {
-  ami           = "ami-0f7362c1bbc7e30ec"
-  instance_type = "t3.micro"
+  ami           = "ami-03bbe60df80bdccc0" # isucon10-qualify
+  instance_type = "t2.small"
   key_name      = "isucon"
 
   vpc_security_group_ids = [module.aws_isucon_sg.security_group_id]
+
+  root_block_device {
+    volume_type = "gp2"
+    volume_size = 50
+  }
 
   tags = {
     Name = "ISUCON10"
